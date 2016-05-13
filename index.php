@@ -27,9 +27,9 @@ if (isset($_GET['Controller']) && $_GET['Controller'] != 'PaginaController') {
 
     new ClassAutoloader();
     
-    if (isset($_SESSION["usuario"])) {
+    if (isset($_SESSION["pan"])) {
 
-        //include 'View/Admin/Plugins/Head.php';
+        include 'View/Admin/AdminHeader.php';
 
         if (isset($_GET['Controller'])) {
             $controller = $_GET['Controller'];
@@ -46,7 +46,7 @@ if (isset($_GET['Controller']) && $_GET['Controller'] != 'PaginaController') {
         $controller = new $controller();
         $controller->$action();
 
-        //include 'View/Admin/Plugins/Foot.php';
+        include 'View/Admin/AdminFooter.php';
     } else {
         
         $controller = new LoginController();

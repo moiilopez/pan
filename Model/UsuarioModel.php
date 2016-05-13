@@ -29,31 +29,28 @@ class UsuarioModel extends Dao {
         $parameters [':telefono'] = $this->telefono;
         $parameters [':direccion'] = $this->direccion;
         
-        
-        
         return $this->simpleQuery($stmt,$parameters);
     }
     
     public function select() {
+ 
         $stmt = "SELECT * FROM usuario";
         
-        $objDao = new Dao();
-        
-        return $objDao->resultQuery($stmt,array());
+        return $this->resultQuery($stmt,array());
     }
     
     public function selectById() {
+        
         $stmt = "SELECT * FROM usuario "
                 . "WHERE Id = :id";
         
         $parameters [':id'] = $this->id;
         
-        $objDao = new Dao();
-        
-        return $objDao->resultQuery($stmt,$parameters);
+        return $this->resultQuery($stmt,$parameters);
     }
     
     public function update() {
+        
         $stmt = "UPDATE usuario "
                 . "SET Nombre = :nombre, Apellido = :apellido, Username = :username, Email = :email, Contrasena = :contrasena, Imagen = :imagen, Documento = :documento, Telefono = :telefono, Direccion = :direccion "
                 . "WHERE Id = :id";
@@ -68,11 +65,8 @@ class UsuarioModel extends Dao {
         $parameters [':documento'] = $this->documento;
         $parameters [':telefono'] = $this->telefono;
         $parameters [':direccion'] = $this->direccion;
-        
-               
-        $objDao = new Dao();
-        
-        return $objDao->simpleQuery($stmt,$parameters);
+
+        return $this->simpleQuery($stmt,$parameters);
     }
     
     public function delete() {
@@ -80,10 +74,8 @@ class UsuarioModel extends Dao {
                 . "WHERE Id = :id";
         
         $parameters [':id'] = $this->id;
-               
-        $objDao = new Dao();
         
-        return $objDao->simpleQuery($stmt,$parameters);
+        return $this->simpleQuery($stmt,$parameters);
     }
     
 }

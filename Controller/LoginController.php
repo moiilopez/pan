@@ -13,7 +13,7 @@ class LoginController extends LoginModel {
 
             if ($_SESSION["pan"]) {
 
-                header("location: index.php");
+                header("location: index.php?Controller=AdminController&Action=index");
             }
         }
 
