@@ -27,7 +27,7 @@ class LoginController extends LoginModel {
             echo '<div class="alert alert-defalult">'
                 . '<p>Saliendo...</p>'
                 . '</div>';
-            echo '<META HTTP-EQUIV=Refresh CONTENT="3; URL=index.php">';
+            echo '<META HTTP-EQUIV=Refresh CONTENT="1; URL=index.php">';
         }
     }
 

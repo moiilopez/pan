@@ -1,0 +1,225 @@
+<?php
+
+class ProductoModel extends Dao {
+
+    public $id;
+    public $nombre;
+    public $tipo;
+    public $precio;
+    public $descripcion;
+    public $imagen;
+    public $disponible;
+
+    public function insert() {
+
+        $stmt = 'INSERT INTO producto (Nombre,Tipo,Precio,Descripcion,Imagen,Moneda,Fecha) '
+                . 'VALUES (:nombre,:tipo,:precio,:descripcion,:imagen,:moneda,now())';
+
+        $parameters [':nombre'] = $this->nombre;
+        $parameters [':tipo'] = $this->tipo;
+        $parameters [':precio'] = $this->precio;
+        $parameters [':descripcion'] = $this->descripcion;
+        $parameters [':imagen'] = $this->imagen;
+        $parameters [':moneda'] = $this->moneda;
+
+        return $this->simpleQuery($stmt, $parameters);
+    }
+
+    public function select() {
+
+        $stmt = 'SELECT producto.*, tipo.Nombre AS Tip '
+                . 'FROM producto '
+                . 'LEFT JOIN tipo '
+                . 'ON producto.Tipo = tipo.Id '
+                . 'WHERE Estado = 1';
+
+        return $this->resultQuery($stmt, array());
+    }
+
+    public function selectById() {
+
+        $stmt = 'SELECT producto.*, tipo.Nombre AS Tip, '
+                . 'DATE_FORMAT(producto.Fecha,"%d/%m/%Y - %H:%i") AS Fecha '
+                . 'FROM producto '
+                . 'LEFT JOIN tipo '
+                . 'ON producto.Tipo = tipo.Id '
+                . 'WHERE producto.Id = :id && Estado = 1';
+
+        $parameters [':id'] = $this->id;
+
+        return $this->resultQuery($stmt, $parameters);
+    }
+
+    public function selectAllById() {
+
+        $stmt = 'SELECT producto.*, tipo_producto.Nombre AS Tip, '
+                . 'DATE_FORMAT(producto.Fecha,"%d/%m/%Y - %H:%i") AS Fecha '
+                . 'FROM producto '
+                . 'LEFT JOIN tipo_producto '
+                . 'ON producto.Tipo = tipo_producto.Id '
+                . 'WHERE producto.Id = :id';
+
+        $parameters [':id'] = $this->id;
+
+        return $this->resultQuery($stmt, $parameters);
+    }
+
+    public function selectByTypeLimit($min) {
+
+        $stmt = 'SELECT producto.*, tipo.Nombre AS Tip, tipo.Categoria '
+                . 'FROM producto '
+                . 'LEFT JOIN tipo '
+                . 'ON producto.Tipo = tipo.Id '
+                . 'WHERE tipo.Id = :tipo && Estado = 1 '
+                . 'LIMIT ' . $min . ',16 ';
+
+        $parameters [':tipo'] = $this->tipo;
+
+        return $this->resultQuery($stmt, $parameters);
+    }
+
+    public function selectByType() {
+
+        $stmt = 'SELECT producto.Nombre, tipo.Nombre AS Tip '
+                . 'FROM producto '
+                . 'LEFT JOIN tipo '
+                . 'ON producto.Tipo = tipo.Id '
+                . 'WHERE tipo.Id = :tipo && Estado = 1 ';
+
+        $parameters [':tipo'] = $this->tipo;
+
+        return $this->resultQuery($stmt, $parameters);
+    }
+
+    public function search() {
+
+        $stmt = 'SELECT producto.Id, producto.Nombre, producto.Precio, producto.Moneda, '
+                . 'producto.Estado, producto.Imagen, tipo_producto.Nombre AS Tipo, '
+                . 'DATE_FORMAT(producto.Fecha,"%d/%m/%Y - %H:%i") AS Fecha '
+                . 'FROM producto '
+                . 'LEFT JOIN tipo_producto '
+                . 'ON producto.Tipo = tipo_producto.Id '
+                . 'WHERE (producto.Nombre LIKE "%":nombre"%" '
+                . '|| tipo_producto.Nombre LIKE "%":nombre"%") '
+                . '&& Estado = 1 ';
+
+        $parameters [':nombre'] = $this->nombre;
+
+        return $this->resultQuery($stmt, $parameters);
+    }
+
+    public function searchDisable() {
+
+        $stmt = 'SELECT producto.Id, producto.Nombre, producto.Precio, producto.Moneda, '
+                . 'producto.Estado, producto.Imagen, tipo.Nombre AS Tipo, '
+                . 'DATE_FORMAT(producto.Fecha,"%d/%m/%Y - %H:%i") AS Fecha '
+                . 'FROM producto '
+                . 'LEFT JOIN tipo '
+                . 'ON producto.Tipo = tipo.Id '
+                . 'WHERE (producto.Nombre LIKE "%":nombre"%" '
+                . '|| tipo.Nombre LIKE "%":nombre"%") ';
+
+        $parameters [':nombre'] = $this->nombre;
+
+        return $this->resultQuery($stmt, $parameters);
+    }
+
+    public function searchLimit($min) {
+
+        $stmt = 'SELECT producto.Id, producto.Nombre, producto.Precio, producto.Moneda, '
+                . 'producto.Imagen,tipo.Nombre AS Tipo, '
+                . 'DATE_FORMAT(producto.Fecha,"%d/%m/%Y - %H:%i") AS Fecha '
+                . 'FROM producto '
+                . 'LEFT JOIN tipo '
+                . 'ON producto.Tipo = tipo.Id '
+                . 'WHERE (producto.Nombre LIKE "%":nombre"%" '
+                . '|| tipo.Nombre LIKE "%":nombre"%" '
+                . '|| marca.Nombre LIKE "%":nombre"%") '
+                . '&& Estado = 1 '
+                . "LIMIT " . $min . ",12 ";
+
+        $parameters [':nombre'] = $this->nombre;
+
+        return $this->resultQuery($stmt, $parameters);
+    }
+
+    public function update() {
+
+        $stmt = 'UPDATE producto '
+                . 'SET Nombre = :nombre, Tipo = :tipo, Precio = :precio, '
+                . 'Descripcion = :descripcion, Imagen = :imagen, Moneda = :moneda '
+                . 'WHERE Id = :id';
+
+        $parameters [':nombre'] = $this->nombre;
+        $parameters [':tipo'] = $this->tipo;
+        $parameters [':precio'] = $this->precio;
+        $parameters [':descripcion'] = $this->descripcion;
+        $parameters [':imagen'] = $this->imagen;
+        $parameters [':moneda'] = $this->moneda;
+        $parameters [':id'] = $this->id;
+
+        return $this->simpleQuery($stmt, $parameters);
+    }
+
+    public function delete() {
+
+        $stmt = 'DELETE FROM producto '
+                . 'WHERE Id = :id';
+
+        $parameters [':id'] = $this->id;
+
+        return $this->simpleQuery($stmt, $parameters);
+    }
+
+    public function enable() {
+
+        $stmt = 'UPDATE producto '
+                . 'SET Estado = 1 '
+                . 'WHERE Id = :id';
+
+        $parameters [':id'] = $this->id;
+
+        return $this->simpleQuery($stmt, $parameters);
+    }
+
+    public function disable() {
+
+        $stmt = 'UPDATE producto '
+                . 'SET Estado = 0 '
+                . 'WHERE Id = :id';
+
+        $parameters [':id'] = $this->id;
+
+        return $this->simpleQuery($stmt, $parameters);
+    }
+
+    public function available() {
+
+        $stmt = 'UPDATE producto '
+                . 'SET Disponible = :disponible '
+                . 'WHERE Id = :id';
+
+        $parameters [':id'] = $this->id;
+        $parameters [':disponible'] = $this->disponible;
+
+        return $this->simpleQuery($stmt, $parameters);
+    }
+
+    public function totalProducts() {
+
+        $stmt = 'SELECT count(Id) AS Total '
+                . 'FROM producto';
+
+        return $this->resultQuery($stmt, array());
+    }
+
+    public function selectAvailable() {
+
+        $stmt = 'SELECT count(Id) AS Disponible '
+                . 'FROM producto '
+                . 'WHERE Disponible = 1';
+
+        return $this->resultQuery($stmt, array());
+    }
+
+}

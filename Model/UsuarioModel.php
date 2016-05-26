@@ -15,6 +15,7 @@ class UsuarioModel extends Dao {
     public $direccion;
     
     public function insert() {
+        
         $stmt = "INSERT INTO usuario (Nombre,Apellido,Username,Email,Contrasena,Imagen,Tipo,Documento,Telefono,Direccion,Fecha)"
                 . " VALUES (:nombre,:apellido,:username,:email,:contrasena,:imagen,:tipo,:documento,:telefono,:direccion,now())";
         
@@ -70,6 +71,7 @@ class UsuarioModel extends Dao {
     }
     
     public function delete() {
+        
         $stmt = "DELETE FROM usuario "
                 . "WHERE Id = :id";
         
