@@ -23,11 +23,14 @@ if(isset($_GET['Admin'])){
     header('Location: index.php?Controller=AdminController&Action=index');
 }
 
-if (isset($_GET['Controller']) && $_GET['Controller'] != 'PaginaController') {
+if (isset($_GET['Controller']) && $_GET['Controller'] != 'PaginaController' 
+        && $_GET['Controller'] != 'PedidoController' 
+        && $_GET['Controller'] != 'ClienteController'
+        && $_GET['Controller'] != 'LoginController') {
 
     new ClassAutoloader();
     
-    if (isset($_SESSION["pan"])) {
+    if (isset($_SESSION["pan"]) && $_SESSION["pan"]["Tipo"] != 3) {
 
         include 'View/Admin/AdminHeader.php';
 

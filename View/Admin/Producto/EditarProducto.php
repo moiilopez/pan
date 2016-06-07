@@ -34,26 +34,26 @@
                         endif;
                         ?>
                         <div class="col-sm-2" style="float: right">
-                            <a style="float:right" href="index.php?Controller=ProductoController&Action=producto&id=<?php echo $producto[0]['Id'] ?>"><button type="button" class="btn btn-info btn-group-sm">Info Producto</button></a>
+                            <a style="float:right" href="index.php?Controller=ProductoController&Action=producto&id=<?php echo $producto['Id'] ?>"><button type="button" class="btn btn-info btn-group-sm">Info Producto</button></a>
                             <br><br><br>
-                            <?php if ($producto[0]['Estado'] == 1): ?>
-                                <a style="float:right" href="index.php?Controller=ProductoController&Action=desactivar&id=<?php echo $producto[0]['Id'] ?>"><button type="button" class="btn btn-danger btn-group-sm">Desactivar</button></a>
+                            <?php if ($producto['Estado'] == 1): ?>
+                                <a style="float:right" href="index.php?Controller=ProductoController&Action=desactivar&id=<?php echo $producto['Id'] ?>"><button type="button" class="btn btn-danger btn-group-sm">Desactivar</button></a>
                             <?php else : ?>
-                                <a style="float:right" href="index.php?Controller=ProductoController&Action=activar&id=<?php echo $producto[0]['Id'] ?>"><button type="button" class="btn btn-success btn-group-sm">Activar</button></a>
+                                <a style="float:right" href="index.php?Controller=ProductoController&Action=activar&id=<?php echo $producto['Id'] ?>"><button type="button" class="btn btn-success btn-group-sm">Activar</button></a>
                             <?php endif; ?>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" name="id" value="<?php echo $producto [0]['Id'] ?>" hidden>
+                            <input type="text" name="id" value="<?php echo $producto ['Id'] ?>" hidden>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">Id</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" name="nom" value="<?php echo $producto [0]['Id'] ?>" disabled>
+                                    <input type="text" class="form-control" name="nom" value="<?php echo $producto ['Id'] ?>" disabled>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">Nombre</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" name="nombre" value="<?php echo $producto [0]['Nombre'] ?>" required>
+                                    <input type="text" class="form-control" name="nombre" value="<?php echo $producto ['Nombre'] ?>" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -62,7 +62,7 @@
                                     <select class="form-control" name="tipo" required>
                                         <?php
                                         foreach ($tipos as $tip) :
-                                            if ($producto [0]['Tipo'] == $tip['Id']) :
+                                            if ($producto ['Tipo'] == $tip['Id']) :
                                                 ?>
                                                 <option value="<?php echo $tip['Id'] ?>" selected><?php echo $tip['Nombre'] ?></option>
                                             <?php else : ?>
@@ -77,25 +77,25 @@
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">Precio</label>
                                 <div class="col-sm-6">
-                                    <input type="number" class="form-control" name="precio" value="<?php echo $producto [0]['Precio'] ?>" required>
+                                    <input type="number" class="form-control" name="precio" value="<?php echo $producto ['Precio'] ?>" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">Descripcion</label>
                                 <div class="col-sm-6">
-                                    <textarea type="text" class="form-control" name="descripcion" rows="4" cols="50"><?php echo $producto [0]['Descripcion'] ?></textarea>
+                                    <textarea type="text" class="form-control" name="descripcion" rows="4" cols="50"><?php echo $producto ['Descripcion'] ?></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">Imagen</label>
                                 <div class="col-sm-6">
-                                    <img src="Img/Upload/<?php echo $producto[0]['Imagen'] ?>" style="width: 50%"/>
+                                    <img src="Img/Upload/<?php echo $producto['Imagen'] ?>" style="width: 50%"/>
                                     <br><br>
                                     <input type="file" name="imagen" class="btn-default" id="nueva" accept="image/*">
                                     <input type="button" class="btn btn-default" id="boton" value="cambiar imagen">
                                 </div>
                             </div>
-                            <input type="hidden" name="actual" value="<?php echo $producto [0]['Imagen'] ?>">
+                            <input type="hidden" name="actual" value="<?php echo $producto ['Imagen'] ?>">
                             <div class="form-group">
                                 <div class="col-sm-9 col-sm-offset-4">
                                     <input type="submit" class="btn btn-primary" name="submit "value="Actualizar">

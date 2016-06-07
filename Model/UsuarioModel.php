@@ -40,10 +40,28 @@ class UsuarioModel extends Dao {
         return $this->resultQuery($stmt,array());
     }
     
+    public function selectClient() {
+ 
+        $stmt = "SELECT * FROM usuario "
+                . "WHERE Tipo = 3";
+        
+        return $this->resultQuery($stmt,array());
+    }
+    
     public function selectById() {
         
         $stmt = "SELECT * FROM usuario "
                 . "WHERE Id = :id";
+        
+        $parameters [':id'] = $this->id;
+        
+        return $this->resultQuery($stmt,$parameters);
+    }
+    
+    public function selectClientById() {
+        
+        $stmt = "SELECT * FROM usuario "
+                . "WHERE Id = :id && Tipo = 3";
         
         $parameters [':id'] = $this->id;
         

@@ -1,20 +1,26 @@
 <?php
 
-class UsuarioController extends UsuarioModel {
+class ClienteAdminController extends UsuarioModel {
+    
+    public function get() {
 
+        $this->nombre = $_POST['nombre'];
+        $this->apellido = $_POST['apellido'];
+        $this->username = $_POST['username'];
+        $this->email = $_POST['email'];
+        $this->contrasena = $_POST['contrasena'];
+        $this->documento = $_POST['documento'];
+        $this->telefono = $_POST['telefono'];
+        $this->direccion = $_POST['direccion'];
+    }
+    
     public function ingresar() {
 
         if (isset($_POST['submit'])) {
 
-            $this->nombre = $_POST['nombre'];
-            $this->apellido = $_POST['apellido'];
-            $this->username = $_POST['username'];
-            $this->email = $_POST['email'];
-            $this->contrasena = $_POST['contrasena'];
-            $this->tipo = 2;
-            $this->documento = $_POST['documento'];
-            $this->telefono = $_POST['telefono'];
-            $this->direccion = $_POST['direccion'];
+            $this->get();
+            
+            $this->tipo = 3;
             $this->imagen = "UserDft.png";
 
             if (isset($_FILES['imagen']) && $_FILES['imagen']['name']) {
@@ -31,7 +37,7 @@ class UsuarioController extends UsuarioModel {
                 $msj = "ok";
             }
         }
-        include ('View/Admin/Usuario/IngresarUsuario.php');
+        include ('View/Admin/Cliente/IngresarCliente.php');
     }
 
     public function eliminar() {
@@ -43,7 +49,7 @@ class UsuarioController extends UsuarioModel {
             if ($this->delete()) {
                 $msj = '<div class="alert alert-success">
                     <button class="close" data-dismiss="alert">x</button>
-                    <p>Usuario eliminado con Exito</p>
+                    <p>Cliente eliminado con Exito</p>
                     </div>';
             } else {
                 $msj = '<div class="alert alert-success">
@@ -52,17 +58,10 @@ class UsuarioController extends UsuarioModel {
                     </div>';
             }
         }
-        include ('View/Admin/Usuario/EliminarUsuario.php');
+        include ('View/Admin/Cliente/EliminarCliente.php');
     }
 
     public function listar() {
-
-        $usuarios = $this->select();
-
-        include ('View/Admin/Usuario/ListarUsuario.php');
-    }
-
-    public function listarCliente() {
 
         $usuarios = $this->selectClient();
 
@@ -73,15 +72,9 @@ class UsuarioController extends UsuarioModel {
 
         if (isset($_POST['submit'])) {
 
+            $this->get();
+            
             $this->id = $_GET['id'];
-            $this->nombre = $_POST['nombre'];
-            $this->apellido = $_POST['apellido'];
-            $this->username = $_POST['username'];
-            $this->email = $_POST['email'];
-            $this->contrasena = $_POST['contrasena'];
-            $this->documento = $_POST['documento'];
-            $this->telefono = $_POST['telefono'];
-            $this->direccion = $_POST['direccion'];
             $this->imagen = $_POST['actual'];
 
             if (isset($_FILES['imagen']) && $_FILES['imagen']['name']) {
@@ -95,7 +88,7 @@ class UsuarioController extends UsuarioModel {
             }
 
             if ($this->update()) {
-//                $msj = "ok";
+                $msj = "ok";
             }
         }
 
@@ -103,10 +96,10 @@ class UsuarioController extends UsuarioModel {
 
             $this->id = $_GET['id'];
 
-            $usuario = $this->selectById();
+            $usuario = $this->selectClientById();
         }
 
-        include ('View/Admin/Usuario/EditarUsuario.php');
+        include ('View/Admin/Cliente/EditarCliente.php');
     }
-
+    
 }

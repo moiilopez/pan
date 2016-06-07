@@ -2,7 +2,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Lista de Usuarios</h2>
+                <h2>Lista de Clientes</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a href="#"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -38,13 +38,14 @@
                                 <td><?php echo $us ['Telefono'] ?></td>
                                 <td><?php echo $us ['Direccion'] ?></td>
                                 <td>
-                                    <?php if ($_SESSION['pan']['Nombre'] == $us ['Nombre'] || $_SESSION['pan']['Tipo'] == 1) : ?>
-                                        <a href="index.php?Controller=UsuarioController&Action=actualizar&id=<?php echo $us ['Id'] ?>">
+                                        <a href="index.php?Controller=ClienteAdminController&Action=actualizar&id=<?php echo $us ['Id'] ?>">
                                             <button class="btn btn-warning btn-xs" type="button">
                                                 <i class="fa fa-pencil-square"></i>
                                             </button>
-                                        </a>|
-                                        <a href="index.php?Controller=UsuarioController&Action=eliminar&id=<?php echo $us ['Id'] ?>">
+                                        </a>
+                                    <?php if ($_SESSION['pan']['Tipo'] == 1) : ?>
+                                    |
+                                        <a href="index.php?Controller=ClienteAdminController&Action=eliminar&id=<?php echo $us ['Id'] ?>">
                                             <button class="btn btn-danger btn-xs" type="button">
                                                 <i class="fa fa-trash"></i>
                                             </button>

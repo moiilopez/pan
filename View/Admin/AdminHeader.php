@@ -77,21 +77,21 @@
                                         </ul>
                                     </li>
                                     <li>
-                                        <a><i class="fa fa-filter"></i> Tipo de Producto <span class="fa fa-chevron-down"></span></a>
+                                        <a><i class="fa fa-users"></i> Clientes <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu" style="display: none">
                                             <li>
-                                                <a href="index.php?Controller=TipoController&Action=listar">Listar</a>
+                                                <a href="index.php?Controller=ClienteAdminController&Action=ingresar">Ingresar</a>
+                                            </li>
+                                            <li>
+                                                <a href="index.php?Controller=ClienteAdminController&Action=listar">Listar</a>
                                             </li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <a><i class="fa fa-shield"></i> Marca <span class="fa fa-chevron-down"></span></a>
+                                        <a><i class="fa fa-filter"></i> Tipo de Producto <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu" style="display: none">
                                             <li>
-                                                <a href="index.php?Controller=MarcaController&Action=ingresar">Ingresar</a>
-                                            </li>
-                                            <li>
-                                                <a href="index.php?Controller=MarcaController&Action=listar">Listar</a>
+                                                <a href="index.php?Controller=TipoController&Action=listar">Listar</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -127,7 +127,7 @@
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="">
                                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                        <img src="View/Img/Users/<?php echo $_SESSION['pan'][0]['Imagen']; ?>" alt=""><?php echo $_SESSION['pan'][0]['Nombre']; ?>
+                                        <img src="View/Img/Users/<?php echo $_SESSION['pan']['Imagen']; ?>" alt=""><?php echo $_SESSION['pan']['Nombre']; ?>
                                         <span class=" fa fa-angle-down"></span>
                                     </a>
                                     <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">

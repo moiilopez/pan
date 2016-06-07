@@ -17,7 +17,7 @@ class LoginModel extends Dao {
         $parameters [':username'] = $this->username;
         $parameters [':contrasena'] = $this->password;
 
-        return $this->resultQuery($stmt, $parameters);
+        return $this->resultQueryAssoc($stmt, $parameters);
     }
 
 }

@@ -27,10 +27,10 @@ class ProductoModel extends Dao {
 
     public function select() {
 
-        $stmt = 'SELECT producto.*, tipo.Nombre AS Tip '
+        $stmt = 'SELECT producto.*, tipo_producto.Nombre AS Tip '
                 . 'FROM producto '
-                . 'LEFT JOIN tipo '
-                . 'ON producto.Tipo = tipo.Id '
+                . 'LEFT JOIN tipo_producto '
+                . 'ON producto.Tipo = tipo_producto.Id '
                 . 'WHERE Estado = 1';
 
         return $this->resultQuery($stmt, array());
@@ -38,16 +38,16 @@ class ProductoModel extends Dao {
 
     public function selectById() {
 
-        $stmt = 'SELECT producto.*, tipo.Nombre AS Tip, '
+        $stmt = 'SELECT producto.*, tipo_producto.Nombre AS Tip, '
                 . 'DATE_FORMAT(producto.Fecha,"%d/%m/%Y - %H:%i") AS Fecha '
                 . 'FROM producto '
-                . 'LEFT JOIN tipo '
-                . 'ON producto.Tipo = tipo.Id '
+                . 'LEFT JOIN tipo_producto '
+                . 'ON producto.Tipo = tipo_producto.Id '
                 . 'WHERE producto.Id = :id && Estado = 1';
 
         $parameters [':id'] = $this->id;
 
-        return $this->resultQuery($stmt, $parameters);
+        return $this->resultQueryAssoc($stmt, $parameters);
     }
 
     public function selectAllById() {
@@ -61,16 +61,16 @@ class ProductoModel extends Dao {
 
         $parameters [':id'] = $this->id;
 
-        return $this->resultQuery($stmt, $parameters);
+        return $this->resultQueryAssoc($stmt, $parameters);
     }
 
     public function selectByTypeLimit($min) {
 
-        $stmt = 'SELECT producto.*, tipo.Nombre AS Tip, tipo.Categoria '
+        $stmt = 'SELECT producto.*, tipo_producto.Nombre AS Tip, tipo.Categoria '
                 . 'FROM producto '
-                . 'LEFT JOIN tipo '
-                . 'ON producto.Tipo = tipo.Id '
-                . 'WHERE tipo.Id = :tipo && Estado = 1 '
+                . 'LEFT JOIN tipo_producto '
+                . 'ON producto.Tipo = tipo_producto.Id '
+                . 'WHERE tipo_producto.Id = :tipo && Estado = 1 '
                 . 'LIMIT ' . $min . ',16 ';
 
         $parameters [':tipo'] = $this->tipo;
@@ -80,11 +80,11 @@ class ProductoModel extends Dao {
 
     public function selectByType() {
 
-        $stmt = 'SELECT producto.Nombre, tipo.Nombre AS Tip '
+        $stmt = 'SELECT producto.Nombre, tipo_producto.Nombre AS Tip '
                 . 'FROM producto '
-                . 'LEFT JOIN tipo '
-                . 'ON producto.Tipo = tipo.Id '
-                . 'WHERE tipo.Id = :tipo && Estado = 1 ';
+                . 'LEFT JOIN tipo_producto '
+                . 'ON producto.Tipo = tipo_producto.Id '
+                . 'WHERE tipo_producto.Id = :tipo && Estado = 1 ';
 
         $parameters [':tipo'] = $this->tipo;
 
@@ -111,13 +111,13 @@ class ProductoModel extends Dao {
     public function searchDisable() {
 
         $stmt = 'SELECT producto.Id, producto.Nombre, producto.Precio, producto.Moneda, '
-                . 'producto.Estado, producto.Imagen, tipo.Nombre AS Tipo, '
+                . 'producto.Estado, producto.Imagen, tipo_producto.Nombre AS Tipo, '
                 . 'DATE_FORMAT(producto.Fecha,"%d/%m/%Y - %H:%i") AS Fecha '
                 . 'FROM producto '
-                . 'LEFT JOIN tipo '
-                . 'ON producto.Tipo = tipo.Id '
+                . 'LEFT JOIN tipo_producto '
+                . 'ON producto.Tipo = tipo_producto.Id '
                 . 'WHERE (producto.Nombre LIKE "%":nombre"%" '
-                . '|| tipo.Nombre LIKE "%":nombre"%") ';
+                . '|| tipo_producto.Nombre LIKE "%":nombre"%") ';
 
         $parameters [':nombre'] = $this->nombre;
 
@@ -127,13 +127,13 @@ class ProductoModel extends Dao {
     public function searchLimit($min) {
 
         $stmt = 'SELECT producto.Id, producto.Nombre, producto.Precio, producto.Moneda, '
-                . 'producto.Imagen,tipo.Nombre AS Tipo, '
+                . 'producto.Imagen,tipo_producto.Nombre AS Tipo, '
                 . 'DATE_FORMAT(producto.Fecha,"%d/%m/%Y - %H:%i") AS Fecha '
                 . 'FROM producto '
-                . 'LEFT JOIN tipo '
-                . 'ON producto.Tipo = tipo.Id '
+                . 'LEFT JOIN tipo_producto '
+                . 'ON producto.Tipo = tipo_producto.Id '
                 . 'WHERE (producto.Nombre LIKE "%":nombre"%" '
-                . '|| tipo.Nombre LIKE "%":nombre"%" '
+                . '|| tipo_producto.Nombre LIKE "%":nombre"%" '
                 . '|| marca.Nombre LIKE "%":nombre"%") '
                 . '&& Estado = 1 '
                 . "LIMIT " . $min . ",12 ";

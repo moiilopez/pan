@@ -11,9 +11,12 @@ class LoginController extends LoginModel {
 
             $_SESSION["pan"] = $this->Logar();
 
-            if ($_SESSION["pan"]) {
-
+            if ($_SESSION["pan"]["Tipo"] == 3) {
+                header("location: index.php");
+            } elseif ($_SESSION["pan"]["Tipo"] == 2 || $_SESSION["pan"]["Tipo"] == 1) {
                 header("location: index.php?Controller=AdminController&Action=index");
+            } else {
+                $msj = 'Usuario o Contrseña invalidos';
             }
         }
 
@@ -25,8 +28,8 @@ class LoginController extends LoginModel {
         if (session_status() == PHP_SESSION_ACTIVE) {
             session_destroy();
             echo '<div class="alert alert-defalult">'
-                . '<p>Saliendo...</p>'
-                . '</div>';
+            . '<p>Saliendo...</p>'
+            . '</div>';
             echo '<META HTTP-EQUIV=Refresh CONTENT="1; URL=index.php">';
         }
     }
